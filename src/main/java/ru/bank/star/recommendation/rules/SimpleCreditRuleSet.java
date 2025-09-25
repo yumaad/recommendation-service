@@ -29,9 +29,9 @@ public class SimpleCreditRuleSet implements RecommendationRuleSet {
 
         if (cond1 && cond2) {
             return Optional.of(new RecommendationDto(
-                "ab138afb-f3ba-4a93-b74f-0fcee86d447f",
-                "Простой кредит",
-                "Откройте мир выгодных кредитов с нами!"
+                    "ab138afb-f3ba-4a93-b74f-0fcee86d447f",
+                    "Простой кредит",
+                    "Откройте мир выгодных кредитов с нами!"
             ));
         }
         return Optional.empty();

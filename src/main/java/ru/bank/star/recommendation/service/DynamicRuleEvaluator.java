@@ -3,8 +3,8 @@ package ru.bank.star.recommendation.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import ru.bank.star.recommendation.entity.DynamicRule;
 import ru.bank.star.recommendation.dto.RecommendationDto;
+import ru.bank.star.recommendation.entity.DynamicRule;
 import ru.bank.star.recommendation.repository.BankRepository;
 
 import java.math.BigDecimal;
@@ -47,7 +47,7 @@ public class DynamicRuleEvaluator {
                     default -> false;
                 };
 
-                results.add(negate ? !result : result);
+                results.add(negate != result);
             }
 
             boolean allTrue = results.stream().allMatch(Boolean::booleanValue);

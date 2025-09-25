@@ -30,9 +30,9 @@ public class TopSavingRuleSet implements RecommendationRuleSet {
 
         if (condition1 && condition2) {
             return Optional.of(new RecommendationDto(
-                "59efc529-2fff-41af-baff-90ccd7402925",
-                "Top Saving",
-                "Откройте свою собственную «Копилку» с нашим банком!"
+                    "59efc529-2fff-41af-baff-90ccd7402925",
+                    "Top Saving",
+                    "Откройте свою собственную «Копилку» с нашим банком!"
             ));
         }
         return Optional.empty();

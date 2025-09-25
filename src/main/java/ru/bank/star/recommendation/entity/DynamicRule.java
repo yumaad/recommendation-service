@@ -1,6 +1,7 @@
 package ru.bank.star.recommendation.entity;
 
 import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity
@@ -23,7 +24,8 @@ public class DynamicRule {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String ruleJson;
 
-    public DynamicRule() {}
+    public DynamicRule() {
+    }
 
     public DynamicRule(String productId, String productName, String productText, String ruleJson) {
         this.productId = productId;
@@ -36,36 +38,36 @@ public class DynamicRule {
         return id;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public String getProductText() {
-        return productText;
-    }
-
-    public String getRuleJson() {
-        return ruleJson;
-    }
-
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getProductId() {
+        return productId;
     }
 
     public void setProductId(String productId) {
         this.productId = productId;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
 
+    public String getProductText() {
+        return productText;
+    }
+
     public void setProductText(String productText) {
         this.productText = productText;
+    }
+
+    public String getRuleJson() {
+        return ruleJson;
     }
 
     public void setRuleJson(String ruleJson) {

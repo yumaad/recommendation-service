@@ -32,4 +32,9 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
-
+              - column:
+                  name: trigger_count
+                  type: int
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
