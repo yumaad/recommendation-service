@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: bank-star
+      changes:
+        - createTable:
+            tableName: dynamic_rule
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_text
+                  type: varchar(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rule_json
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: trigger_count
+                  type: int
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
