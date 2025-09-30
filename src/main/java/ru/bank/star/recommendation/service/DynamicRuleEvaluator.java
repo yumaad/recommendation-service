@@ -15,12 +15,11 @@ import java.util.Optional;
 @Component
 public class DynamicRuleEvaluator {
 
-    private final BankRepository repo;
-    private final ObjectMapper mapper = new ObjectMapper();
-
     private static final String USER_OF = "USER_OF";
     private static final String ACTIVE_USER_OF = "ACTIVE_USER_OF";
     private static final String TRANSACTION_SUM_COMPARE = "TRANSACTION_SUM_COMPARE";
+    private final BankRepository repo;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public DynamicRuleEvaluator(BankRepository repo) {
         this.repo = repo;

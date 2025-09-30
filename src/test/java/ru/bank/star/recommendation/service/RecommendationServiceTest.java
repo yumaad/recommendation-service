@@ -2,36 +2,50 @@ package ru.bank.star.recommendation.service;
 
 import org.junit.jupiter.api.Test;
 import ru.bank.star.recommendation.dto.RecommendationDto;
+import ru.bank.star.recommendation.repository.DynamicRuleRepository;
 import ru.bank.star.recommendation.rules.RecommendationRuleSet;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class RecommendationServiceTest {
 
     @Test
-    void testGetRecommendations() {
-        RecommendationRuleSet rule = mock(RecommendationRuleSet.class);
-        when(rule.check("user123")).thenReturn(Optional.of(new RecommendationDto("id1", "Test Product", "Description")));
+    void testGetRecommendationsReturnsList() {
+        DynamicRuleRepository dynamicRepo = mock(DynamicRuleRepository.class);
+        DynamicRuleEvaluator evaluator = mock(DynamicRuleEvaluator.class);
 
-        RecommendationService service = new RecommendationService(List.of(rule));
-        List<RecommendationDto> recs = service.getRecommendations("user123");
+        RecommendationRuleSet ruleSet = mock(RecommendationRuleSet.class);
+        when(ruleSet.check("u1"))
+                .thenReturn(Optional.of(new RecommendationDto("p1", "Card", "Credit Card")));
 
-        assertEquals(1, recs.size());
-        assertEquals("Test Product", recs.get(0).getName());
+        RecommendationService service =
+                new RecommendationService(List.of(ruleSet), dynamicRepo, evaluator);
+
+        List<RecommendationDto> result = service.getRecommendations("u1");
+
+        assertEquals(1, result.size());
+        assertEquals("Card", result.get(0).getName());
     }
 
     @Test
     void testNoRecommendations() {
-        RecommendationRuleSet rule = mock(RecommendationRuleSet.class);
-        when(rule.check("user123")).thenReturn(Optional.empty());
+        DynamicRuleRepository dynamicRepo = mock(DynamicRuleRepository.class);
+        DynamicRuleEvaluator evaluator = mock(DynamicRuleEvaluator.class);
 
-        RecommendationService service = new RecommendationService(List.of(rule));
-        List<RecommendationDto> recs = service.getRecommendations("user123");
+        RecommendationRuleSet ruleSet = mock(RecommendationRuleSet.class);
+        when(ruleSet.check("u1")).thenReturn(Optional.empty());
 
-        assertTrue(recs.isEmpty());
+        RecommendationService service =
+                new RecommendationService(List.of(ruleSet), dynamicRepo, evaluator);
+
+        List<RecommendationDto> result = service.getRecommendations("u1");
+
+        assertTrue(result.isEmpty());
     }
 }
