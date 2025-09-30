@@ -10,6 +10,13 @@ import ru.bank.star.recommendation.service.RecommendationService;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * REST-контроллер для получения рекомендаций.
+ * <p>
+ * Предоставляет API для запроса рекомендаций по идентификатору пользователя.
+ * Используется как внешними клиентами (например, фронтендом),
+ * так и Telegram-ботом.
+ */
 @RestController
 @RequestMapping("/recommendation")
 public class RecommendationController {
@@ -20,6 +27,26 @@ public class RecommendationController {
         this.service = service;
     }
 
+    /**
+     * Возвращает список рекомендаций для указанного пользователя.
+     * <p>
+     * Формат ответа строго соответствует требованиям из ТЗ:
+     * <pre>
+     * {
+     *   "user_id": "<UUID пользователя>",
+     *   "recommendations": [
+     *      {"id": "<UUID продукта>", "name": "<имя продукта>", "text": "<описание>"}
+     *   ]
+     * }
+     * </pre>
+     *
+     * @param userId уникальный идентификатор пользователя
+     * @return объект JSON с ключами:
+     * <ul>
+     *   <li><b>user_id</b> — идентификатор пользователя</li>
+     *   <li><b>recommendations</b> — список {@link RecommendationDto}, может быть пустым</li>
+     * </ul>
+     */
     @GetMapping("/{userId}")
     public Map<String, Object> getRecommendations(@PathVariable String userId) {
         List<RecommendationDto> recs = service.getRecommendations(userId);

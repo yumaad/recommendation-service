@@ -10,6 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис для формирования рекомендаций пользователям банка «Стар».
+ * <p>
+ * Использует:
+ * <ul>
+ *   <li>Статические правила ({@link ru.bank.star.recommendation.rules.RecommendationRuleSet})</li>
+ *   <li>Динамические правила ({@link DynamicRuleEvaluator} и {@link DynamicRuleRepository})</li>
+ * </ul>
+ * Возвращает список {@link ru.bank.star.recommendation.dto.RecommendationDto}.
+ */
 @Service
 public class RecommendationService {
 
@@ -27,6 +37,12 @@ public class RecommendationService {
         this.evaluator = evaluator;
     }
 
+    /**
+     * Получает список рекомендаций для указанного пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @return список {@link RecommendationDto}, может быть пустым
+     */
     public List<RecommendationDto> getRecommendations(String userId) {
         List<RecommendationDto> result = new ArrayList<>();
 

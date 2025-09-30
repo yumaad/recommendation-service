@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * REST-контроллер для управления динамическими правилами рекомендаций.
+ */
 @RestController
 @RequestMapping("/rule")
 public class RuleController {
@@ -19,6 +22,18 @@ public class RuleController {
         this.service = service;
     }
 
+    /**
+     * Создаёт новое динамическое правило рекомендации.
+     *
+     * @param body JSON с данными правила:
+     *             <ul>
+     *                 <li><b>product_id</b> — UUID продукта</li>
+     *                 <li><b>product_name</b> — название продукта</li>
+     *                 <li><b>product_text</b> — текст рекомендации</li>
+     *                 <li><b>rule</b> — JSON-описание условий правила</li>
+     *             </ul>
+     * @return сохранённое правило
+     */
     @PostMapping
     public ResponseEntity<DynamicRule> createRule(@RequestBody Map<String, Object> body) {
         String productId = (String) body.get("product_id");
@@ -30,11 +45,22 @@ public class RuleController {
         return ResponseEntity.ok(service.createRule(rule));
     }
 
+    /**
+     * Возвращает список всех динамических правил.
+     *
+     * @return карта с ключом "data" и списком правил
+     */
     @GetMapping
     public ResponseEntity<Map<String, List<DynamicRule>>> getAllRules() {
         return ResponseEntity.ok(Map.of("data", service.getAllRules()));
     }
 
+    /**
+     * Удаляет правило по его идентификатору.
+     *
+     * @param id UUID правила
+     * @return 204 No Content при успешном удалении
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRule(@PathVariable UUID id) {
         service.deleteRuleById(id);

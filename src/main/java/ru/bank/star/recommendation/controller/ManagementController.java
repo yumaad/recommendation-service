@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * REST-контроллер для управления сервисом.
+ * <p>
+ * Используется для административных операций: сброс кеша и получение информации о сборке.
+ */
 @RestController
 @RequestMapping("/management")
 public class ManagementController {
@@ -22,11 +27,37 @@ public class ManagementController {
         this.buildProperties = buildProperties;
     }
 
+    /**
+     * Сбрасывает все кеши приложения.
+     * <p>
+     * Используется для обновления данных при изменении базы или логики рекомендаций.
+     * Вызывается POST-запросом, так как операция изменяет состояние сервиса.
+     * <p>
+     * Пример запроса:
+     * <pre>
+     * POST /management/clear-caches
+     * </pre>
+     */
     @PostMapping("/clear-caches")
     public void clearCaches() {
         cacheManager.getCacheNames().forEach(name -> cacheManager.getCache(name).clear());
     }
 
+    /**
+     * Возвращает информацию о сервисе: название и версию.
+     * <p>
+     * Данные извлекаются из {@code pom.xml} и доступны после сборки через {@link BuildProperties}.
+     *
+     * Формат ответа:
+     * <pre>
+     * {
+     *   "name": "recommendation-service",
+     *   "version": "0.0.1-SNAPSHOT"
+     * }
+     * </pre>
+     *
+     * @return карта с ключами {@code name} и {@code version}
+     */
     @GetMapping("/info")
     public Map<String, String> info() {
         Map<String, String> info = new HashMap<>();

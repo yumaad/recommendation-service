@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * REST-контроллер для получения статистики по срабатыванию правил.
+ */
 @RestController
 public class RuleStatsController {
 
@@ -18,6 +21,11 @@ public class RuleStatsController {
         this.repository = repository;
     }
 
+    /**
+     * Возвращает статистику по правилам.
+     *
+     * @return список объектов RuleStats
+     */
     @GetMapping("/rule/stats")
     public Map<String, Object> getStats() {
         List<RuleStats> stats = repository.findAll();
