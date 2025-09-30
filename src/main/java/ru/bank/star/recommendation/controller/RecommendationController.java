@@ -1,6 +1,9 @@
 package ru.bank.star.recommendation.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.bank.star.recommendation.dto.RecommendationDto;
 import ru.bank.star.recommendation.service.RecommendationService;
 
